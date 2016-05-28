@@ -33,7 +33,17 @@
   max-width: 750px;
 }
 
+.progress {
+  background-image: linear-gradient(to bottom, #bbb 0%, #ccc 100%)
+}
+
 //->Prelang (user_login:devise)
 .form-user {
   max-width: 450px;
+}
+
+.well {
+  h2 {
+    margin-top: 0;
+  }
 }

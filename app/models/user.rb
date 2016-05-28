@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :trackable, :validatable
   devise :omniauthable, omniauth_providers: [:facebook]
+  has_many :votes, dependent: :destroy
+  has_many :vote_options, through: :votes
 
   #->Prelang (user_login/devise)
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
@@ -25,7 +27,6 @@ class User < ActiveRecord::Base
                 password: Devise.friendly_token[0,20])
   end
 
-
   attr_accessor :login
   
   #->Prelang (user_login:devise/username_login_support)
@@ -36,6 +37,10 @@ class User < ActiveRecord::Base
     else
       where(conditions).first
     end
+  end
+
+  def voted_for?(poll)
+    vote_options(true).any? {|v| v.poll == poll}
   end
 
 

@@ -53,6 +53,10 @@ gem 'binding_of_caller'
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'validates_formatting_of'
 gem 'tzinfo-data'
+gem 'cocoon'
+gem 'jquery-turbolinks'
+gem 'counter_culture', '~> 0.1.23'
+gem "jquery-validation-rails"
 
 group :development do
   gem 'better_errors'
