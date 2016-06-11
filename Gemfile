@@ -57,6 +57,8 @@ gem 'cocoon'
 gem 'jquery-turbolinks'
 gem 'counter_culture', '~> 0.1.23'
 gem "jquery-validation-rails"
+gem "font-awesome-rails"
+
 
 group :development do
   gem 'better_errors'

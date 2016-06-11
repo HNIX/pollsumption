@@ -1,14 +1,121 @@
-<% content_for(:page_header) do %>
-  <%= "#{@user.name}'s profile" %>
-<% end %>
-
-<h2>Participation in polls</h2>
-
-<% @user.vote_options.each do |option| %>
-  <div class="panel panel-default">
-    <div class="panel-heading"><%= link_to option.poll.topic, poll_path(option.poll) %></div>
-    <div class="panel-body">
-      <%= option.title %>
-    </div>
-  </div>
-<% end %>
+<div class="modal-shiftfix">
+	<div class="container-fluid main-content">
+		<div class="social-wrapper">
+		  <div id="social-container">
+		  	<div>
+			  	<% content_for(:page_header) do %>
+	  				<%= "#{@user.name}'s profile" %>
+				<% end %>
+			</div>
+		    <!-- Share Form -->
+		    <div class="item widget-container share-widget fluid-height clearfix">
+		      <div class="widget-content padded">
+		        <textarea class="form-control" placeholder="What's new..." rows="4"></textarea>
+		      </div>
+		      <div class="clearfix">
+		        <div class="col-xs-3 share-options active">
+		          <i class="fa fa-pencil"></i>
+		          <p>
+		            Text
+		          </p>
+		        </div>
+		        <div class="col-xs-3 share-options">
+		          <i class="fa fa-camera"></i>
+		          <p>
+		            Photo
+		          </p>
+		        </div>
+		        <div class="col-xs-3 share-options">
+		          <i class="fa fa-link"></i>
+		          <p>
+		            Link
+		          </p>
+		        </div>
+		        <div class="col-xs-3 share-options">
+		          <i class="fa fa-youtube-play"></i>
+		          <p>
+		            Video
+		          </p>
+		        </div>
+		      </div>
+		    </div>
+		    <!-- end Share Form --><!-- Profile Widget -->
+		    <div class="item widget-container fluid-height profile-widget">
+		      <div class="widget-content padded">
+		        <div class="profile-info clearfix">
+		          <%= image_tag("seven_theme/avatar-male.jpg", width: '70', height: '70', class: "social-avatar pull-left") %>
+		          <div class="profile-details">
+		            <a class="user-name" href="">John Smith</a>
+		            <p>
+		              Sharp&Nimble Designer
+		            </p>
+		            <em><i class="fa fa-map-marker"></i>Washington, D.C.</em>
+		          </div>
+		        </div>
+		        <div class="profile-stats">
+		          <div class="col-xs-4">
+		            <a href="#">
+		              <h2>
+		                245
+		              </h2>
+		            </a>
+		            <p>
+		              Posts
+		            </p>
+		          </div>
+		          <div class="col-xs-4">
+		            <a href="#">
+		              <h2>
+		                150
+		              </h2>
+		            </a>
+		            <p>
+		              Friends
+		            </p>
+		          </div>
+		          <div class="col-xs-4">
+		            <a href="#">
+		              <h2>
+		                12
+		              </h2>
+		            </a>
+		            <p>
+		              Videos
+		            </p>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		    <!-- end Profile Widget --><!-- Text Post -->
+		    <div class="item widget-container fluid-height social-entry">
+		      <% @user.vote_options.each do |option| %>
+			      <div class="widget-content padded">
+			        <div class="profile-info clearfix">
+			          <%= image_tag("seven_theme/avatar-female2.jpg", width: '50', height: '50', class: "social-avatar pull-left") %>
+			          <div class="profile-details">
+			            <%= link_to option.poll.topic, poll_path(option.poll) %>
+			            <p>
+			              <em>2 days ago</em>
+			            </p>
+			          </div>
+			        </div>
+			        <p class="content">
+			          <%= option.title %>
+			        </p>
+			      </div>
+			   <% end %>
+		    </div>
+		    <!-- end Text Post -->
+		    <div class="item social-widget twitter">
+		      <i class="fa fa-twitter"></i>
+		      <div class="social-data">
+		        <h1>
+		          16k
+		        </h1>
+		        Followers
+		      </div>
+		    </div>
+		</div>
+	  </div>
+	</div>
+</div>
