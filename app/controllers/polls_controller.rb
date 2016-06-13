@@ -2,13 +2,16 @@ class PollsController < ApplicationController
   
   def index
     @polls = Poll.all
+    @poll = Poll.includes(:vote_options).find_by_id(params[:id])
   end
 
   def show
+    @polls = Poll.all
     @poll = Poll.includes(:vote_options).find_by_id(params[:id])
   end
 
   def new
+    @polls = Poll.all
     @poll = Poll.new
   end
 
@@ -23,6 +26,7 @@ class PollsController < ApplicationController
   end
 
   def edit 
+    @polls = Poll.all
     @poll = Poll.find_by_id(params[:id])
   end
 

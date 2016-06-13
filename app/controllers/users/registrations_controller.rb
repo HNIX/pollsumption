@@ -1,7 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   include ApplicationHelper
   layout "signup"
-  
+
   def create
     super
   end

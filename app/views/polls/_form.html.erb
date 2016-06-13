@@ -1,22 +1,35 @@
-<%= form_for @poll do |f| %>
-  <%= render 'elements/errors', object: @poll %>
-
-  <div class="form-group">
-    <%= f.label :topic %>
-    <%= f.text_area :topic, rows: 3, required: true, class: 'form-control' %>
+<div class="portlet box green">
+  <div class="portlet-title">
+    <div class="caption">
+        <i class="fa fa-pencil"></i> New Poll
+    </div>
   </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading">Options</div>
-    <div class="panel-body">
-      <%= f.fields_for :vote_options do |options_form| %>
-        <%= render 'vote_option_fields', f: options_form %>
-      <% end %>
-      <div class="links">
-        <%= link_to_add_association 'add option', f, :vote_options %>
+  <div class="portlet-body form">
+    <%= form_for @poll, :html => {:class => 'form-horizontal'} do |f| %>
+      <%= render 'elements/errors', object: @poll %>
+      <div class="form-body">
+        <div class="form-group">
+          <%= f.label :topic, class: 'col-md-3 control-label' %>
+          <div class="col-md-4">
+            <%= f.text_field :topic, rows: 3, required: true, class: 'form-control input-circle', placeholder: 'Poll Topic' %>
+            <span class="help-block"> A block of help text. </span>
+          </div>
+        </div>
+        <%= f.fields_for :vote_options do |options_form| %>
+          <%= render 'vote_option_fields', f: options_form %>
+        <% end %>
+        <div class="form-group">
+          <%= link_to_add_association 'add option', f, :vote_options, class: 'col-md-3 control-label' %>
+        </div>
+        <div class="form-actions">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-9">
+                    <%= f.submit 'Create', class: 'btn btn-circle green' %>
+                    <%= link_to "Cancel", :back, class: 'btn btn-circle grey-salsa btn-outline' %>
+                </div>
+            </div>
+        </div>
       </div>
-    </div>  
+    <% end %>
   </div>
-  
-  <%= f.submit 'Create', class: 'btn btn-primary btn-lg' %>
-<% end %>
+</div>

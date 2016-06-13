@@ -10,4 +10,5 @@ class Poll < ActiveRecord::Base
   def votes_summary
   	vote_options.inject(0) {|summary, option| summary + option.votes.count}
   end
+
 end

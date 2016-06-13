@@ -1,44 +1,31 @@
-<div class="page-header">
-  <h1><%=t ".title", default: "Login" %></h1>
-</div>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "form-horizontal form-user"}) do |f| %>
-                                                                                                                                        
-  
-  <div class="form-group">
-    <%= f.label :login, "Username or Email", class: "control-label col-md-4" %>
-    <div class="col-md-8">
-      <%= f.text_field :login, class: "text-field form-control", html: {spellcheck: "false"} %>
+<!-- BEGIN LOGIN FORM -->
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "login-form"}) do |f| %>
+    <h3 class="form-title font-green">Sign In</h3>
+    <div class="alert alert-danger display-hide">
+        <button class="close" data-close="alert"></button>
+        <span> Enter any username and password. </span>
     </div>
-  </div>
-  
-
-  <div class="form-group">
-    <%= f.label :password, class: "control-label col-md-4" %>
-    <div class="col-md-8">
-      <%= f.password_field :password, class: "text-field form-control", html: {autocomplete: "off"} %>
-    </div>
-  </div>
-                                                                                                                                        
-  <% if devise_mapping.rememberable? -%>
     <div class="form-group">
-      <%= f.label :remember_me, "Remember Me", class: "control-label col-md-4" %>
-      <div class="col-md-8">
-        <%= f.check_box :remember_me %>
-      </div>
+        <%= f.label :login, "Username or Email", class: "control-label visible-ie8 visible-ie9" %>
+        <%= f.text_field :login, class: "form-control form-control-solid placeholder-no-fix", html: {spellcheck: "false"}, placeholder: "Username or Email" %>
     </div>
-  <% end -%>
-                                                                                                                                        
-  <div class="form-group">
-    <div class="col-md-offset-4 col-md-8">
-      <%= f.submit "Login", class: "btn btn-primary" %>
+    <div class="form-group">
+        <%= f.label :password, class: "control-label visible-ie8 visible-ie9" %>
+        <%= f.password_field :password, class: "form-control form-control-solid placeholder-no-fix", html: {autocomplete: "off"}, placeholder: "Password" %>
     </div>
-  </div>
-
-  <div class="form-group">
-    <div class="col-md-offset-4 col-md-8">
-      <%= render "devise/shared/links" %>
+    <div class="form-actions">
+        <%= link_to "Cancel", defined?(root_path) ? root_path : "#", class: 'btn green btn-outline' %>
+        <%= f.submit "Login", class: "btn green uppercase pull-right" %>
+        <% if devise_mapping.rememberable? -%>
+            <%= f.label :remember_me, "Remember Me", class: "rememberme check mt-checkbox mt-checkbox-outline" do %>
+              <%= f.check_box :remember_me %>
+            <% end %>
+        <% end -%>
     </div>
-  </div>
-
+    <div class="create-account">
+      <p>
+        <%= render "devise/shared/links" %>
+      </p>
+    </div>
 <% end %>
+<!-- END LOGIN FORM -->
