@@ -1,5 +1,6 @@
 class PollsController < ApplicationController
-  
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+
   def index
     @polls = Poll.all
     @poll = Poll.includes(:vote_options).find_by_id(params[:id])

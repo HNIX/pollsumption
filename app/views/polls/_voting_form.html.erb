@@ -5,9 +5,9 @@
   
   <p><b>Total votes: <%= @poll.votes_summary %></b></p>
 
-  <% if current_user.voted_for?(@poll) %>
+  <% if user_signed_in? && current_user.voted_for?(@poll) %>
     <p>You have already voted!</p>
-  <% else %>
+  <% elseif user_signed_in? %>
     <%= submit_tag 'Vote', class: 'btn btn-lg btn-primary' %>
   <% end %>
 <% end %>
