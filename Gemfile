@@ -58,6 +58,7 @@ gem 'jquery-turbolinks'
 gem 'counter_culture', '~> 0.1.23'
 gem "jquery-validation-rails"
 gem "font-awesome-rails"
+gem 'pundit', '~> 1.1'
 
 
 group :development do

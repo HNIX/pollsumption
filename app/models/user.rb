@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   devise :omniauthable, omniauth_providers: [:facebook]
   has_many :votes, dependent: :destroy
   has_many :vote_options, through: :votes
+  has_many :polls, dependent: :destroy
 
   #->Prelang (user_login/devise)
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
@@ -42,7 +43,6 @@ class User < ActiveRecord::Base
   def voted_for?(poll)
     vote_options(true).any? {|v| v.poll == poll}
   end
-
 
   devise authentication_keys: [:login]
 end

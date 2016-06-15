@@ -1,23 +1,26 @@
 class PollsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_poll, only: [:edit, :update, :destroy]
 
   def index
     @polls = Poll.all
     @poll = Poll.includes(:vote_options).find_by_id(params[:id])
+    authorize @polls
   end
 
   def show
-    @polls = Poll.all
     @poll = Poll.includes(:vote_options).find_by_id(params[:id])
+    authorize @poll
   end
 
   def new
-    @polls = Poll.all
     @poll = Poll.new
+    authorize @poll
   end
 
   def create
     @poll = Poll.new(poll_params)
+    authorize @poll
     if @poll.save
     	flash[:success] = 'Poll was created!'
     	redirect_to polls_path
@@ -27,12 +30,9 @@ class PollsController < ApplicationController
   end
 
   def edit 
-    @polls = Poll.all
-    @poll = Poll.find_by_id(params[:id])
   end
 
   def update
-    @poll = Poll.find_by_id(params[:id])
     if @poll.update_attributes(poll_params)
       flash[:success] = 'Poll was updated!'
       redirect_to polls_path
@@ -42,7 +42,6 @@ class PollsController < ApplicationController
   end
 
   def destroy
-    @poll = Poll.find_by_id(params[:id])
     if @poll.destroy
       flash[:success] = 'Poll was destroyed!'
     else
@@ -52,7 +51,11 @@ class PollsController < ApplicationController
   end
 
   private
-
+  
+  def set_poll
+    @poll = Poll.find_by_id(params[:id])
+    authorize @poll
+  end
   def poll_params
   	params.require(:poll).permit(:topic, vote_options_attributes: [:id, :title, :_destroy])
   end

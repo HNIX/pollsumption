@@ -107,30 +107,21 @@
                       <%= link_to "Dashboard", defined?(root_path) ? root_path : "#" %>                 
                   </li>
                   <li class="menu-dropdown classic-menu-dropdown ">
-                      <a href="javascript:;"> My Polls
-                          <span class="arrow"></span>
-                      </a>
-                      <ul class="dropdown-menu pull-left">
-                          <% @polls.each do |poll| %>
-                            <li>
-                                <%= link_to poll.topic, poll_path(poll) %>
-                            </li>
-                          <% end %>
-                      </ul>
+                    <%= link_to "Polls", polls_path %>
                   </li>
                   <li class="menu-dropdown classic-menu-dropdown ">
-                      <a href="javascript:;"> Categories
+                      <a href="javascript:;"> Conferences
                           <span class="arrow"></span>
                       </a>
                       <ul class="dropdown-menu pull-left">
-                          <li><a href="#">Sports</a></li>
-                          <li><a href="#">Other</a></li>
-                          <li><a href="#">Other</a></li>
+                          <li><a href="#">All</a></li>
+                          <li><a href="#">SEC</a></li>
+                          <li><a href="#">PAC 10</a></li>
                           <li><a href="#">Other</a></li>
                       </ul>
-                  </li>
+                  </li> 
                   <li>
-                    <%= link_to "New Poll", new_poll_path %>
+                    <%= link_to "New Poll", new_poll_path if user_signed_in? %>
                   </li>
               </ul>
           </div>
