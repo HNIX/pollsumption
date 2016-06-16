@@ -4,7 +4,6 @@ class PollsController < ApplicationController
 
   def index
     @polls = Poll.all.order(created_at: :asc)
-    @poll = Poll.includes(:vote_options).find_by_id(params[:id])
     authorize @polls
   end
 
@@ -57,7 +56,6 @@ class PollsController < ApplicationController
     authorize @poll
   end
   def poll_params
-  	params.require(:poll).permit(:topic,:category_id, vote_options_attributes: [:id, :title, :_destroy])
+  	params.require(:poll).permit(:topic,:category_id, :user_id, vote_options_attributes: [:id, :title, :_destroy])
   end
-
 end

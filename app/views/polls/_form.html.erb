@@ -14,6 +14,7 @@
   <div class="portlet-body form">
     <%= form_for @poll, :html => {:class => 'form-horizontal'} do |f| %>
       <%= render 'elements/errors', object: @poll %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
       <div class="form-body">
         <div class="form-group">
           <%= f.label :topic, class: 'col-md-3 control-label' %>

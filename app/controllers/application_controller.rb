@@ -5,7 +5,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
   include Pundit
-  after_action :verify_authorized, unless: :devise_controller?
+  after_action :verify_authorized, unless: :devise_controller? 
+  before_filter :set_current_ip
 
 
   protected
@@ -35,6 +36,15 @@ class ApplicationController < ActionController::Base
       end
 
       redirect_to fallback_redirect, flash: {error: "You must be signed in to view this page."}
+    end
+  end
+
+  def set_current_ip
+    if request.remote_ip == '127.0.0.1'
+      # Hard coded remote address
+      User.current_ip = '107.181.78.168'
+    else
+      User.current_ip = request.remote_ip
     end
   end
 
