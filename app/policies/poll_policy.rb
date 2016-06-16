@@ -16,6 +16,9 @@ class PollPolicy < ApplicationPolicy
   	user.present? && user == poll.user
   end
   
+  def destroy?
+    user.present? && user == poll.user
+  end
 
   private
   

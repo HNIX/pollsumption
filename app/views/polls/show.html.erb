@@ -1,7 +1,28 @@
 <% content_for(:page_header) {"Share your opinion"} %>
-
-<h2><%= @poll.topic %></h2>
-<%= render 'voting_form' %>
+<div class="col-md-8">
+  <div class="portlet light">
+      <div class="portlet-title">
+        <div class="caption font-green-sharp">
+            <span class="caption-subject bold uppercase"><%= @poll.category.name if @poll.category %> | <%= link_to @poll.topic, poll_path(@poll) %></span>
+        </div>
+        <div class="actions">
+          <% if user_signed_in? %>
+            <%= link_to 'Vote', poll_path(@poll), class: "btn btn-circle btn-default btn-sm" %>
+          <% end %>
+          <%= link_to 'Edit', edit_poll_path(@poll), class: "btn btn-circle btn-default btn-sm" if policy(@poll).edit? %>
+          <%= link_to 'Delete', poll_path(@poll), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-circle btn-default btn-sm" if policy(@poll).destroy? %>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div>
+          <%= render 'voting_form' %>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="col-md-8">
+  <%= render 'disqus' %>
+</div>
 
 <script data-turbolinks-track="true">
   $(document).ready(function() {

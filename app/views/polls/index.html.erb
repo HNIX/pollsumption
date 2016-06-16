@@ -1,11 +1,22 @@
-<% content_for(:page_header) {"Participate in our poll right now!"} %>
-
-<% @polls.each do |poll| %>
-<div class="col-md-6">
-    <div class="portlet light bordered">
+<div class="col-md-2">
+  <h3>Favorites</h3>
+  <div class="portlet light">
         <div class="portlet-title">
             <div class="caption font-green-sharp">
-                <span class="caption-subject bold uppercase"><%= poll.topic %></span>
+                <span class="caption-subject bold uppercase">Sidebar Content</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <p>Lots of content</p>
+        </div>
+    </div>
+</div>
+<div class="col-md-7">
+<% @polls.each do |poll| %>
+    <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption font-green-sharp">
+                <span class="caption-subject bold uppercase"><%= poll.category.name if poll.category %> | <%= link_to poll.topic, poll_path(poll) %></span>
                 <span class="caption-helper">Total Votes: <%= poll.votes_summary %></span>
             </div>
             <div class="actions">
@@ -27,5 +38,27 @@
          <% end %>
         </div>
     </div>
+    <% end %>
 </div>
-<% end %>
+<div class="col-md-3">
+  <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption font-green-sharp">
+                <span class="caption-subject bold uppercase">Sidebar Content</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <p>Lots of content</p>
+        </div>
+    </div>
+    <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption font-green-sharp">
+                <span class="caption-subject bold uppercase">Sidebar Content</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <p>Lots of content</p>
+        </div>
+    </div>
+</div>
