@@ -60,6 +60,8 @@ gem "jquery-validation-rails"
 gem "font-awesome-rails"
 gem 'pundit', '~> 1.1'
 gem 'geocoder'
+gem 'hightop'
+gem "chartkick"
 
 
 group :development do

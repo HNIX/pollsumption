@@ -1,0 +1,25 @@
+<script type='text/javascript'>
+   function drawMap() {
+     var data = new google.visualization.DataTable();
+     data.addRows(<%=q.size%>);
+     data.addColumn('string', 'State');
+     data.addColumn('number', 'Visits');  
+     <% q.each_with_index do |x, index| -%>
+      data.setValue(<%=index%>, 0, '<%=x[:key]%>');
+      data.setValue(<%=index%>, 1, <%=x[:val]%>);
+     <% end -%>
+     var options = {};
+     options['dataMode'] = 'regions';
+     options['region'] = 'US';
+        options['colors'] = [0xB1CCF8,0x6398EA,0x1565EA,0x0E439C]
+     var container = document.getElementById('map_canvas');
+     var geomap = new google.visualization.GeoMap(container);
+     geomap.draw(data, options);
+  }
+  jQuery(function($){
+    drawMap();
+  });
+</script>
+
+<div id="map_canvas" class="col-md-6"></div>
+<div class="clear"></div>

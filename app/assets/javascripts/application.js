@@ -16,4 +16,6 @@
 //= require turbolinks
 //= require cocoon
 //= require jquery.validate
+//= require chartkick
 //= require_tree .
+
