@@ -340,6 +340,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   jquery-validation-rails
+  kaminari
   omniauth
   omniauth-facebook
   pg

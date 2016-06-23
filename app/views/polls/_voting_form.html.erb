@@ -8,7 +8,7 @@
   <% if user_signed_in? && current_user.voted_for?(@poll) %>
     <p>You have already voted!</p>
   <% elsif user_signed_in? %>
-    <%= submit_tag 'Vote', class: 'btn btn-lg btn-primary' %>
+    <%= submit_tag 'Vote', class: 'btn btn-lg btn-primary', id: 'poll-vote' %>
   <% end %>
 <% end %>
 

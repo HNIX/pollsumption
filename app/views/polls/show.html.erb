@@ -7,9 +7,6 @@
               <span class="caption-subject bold uppercase"><%= @poll.category.name if @poll.category %> | <%= link_to @poll.topic, poll_path(@poll) %></span>
           </div>
           <div class="actions">
-            <% if user_signed_in? %>
-              <%= link_to 'Vote', poll_path(@poll), class: "btn btn-circle btn-default btn-sm" %>
-            <% end %>
             <%= link_to 'Edit', edit_poll_path(@poll), class: "btn btn-circle btn-default btn-sm" if policy(@poll).edit? %>
             <%= link_to 'Delete', poll_path(@poll), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-circle btn-default btn-sm" if policy(@poll).destroy? %>
           </div>
@@ -22,12 +19,9 @@
     </div>
     <%= render 'disqus' %>
   </div>
-   <%= javascript_include_tag 'https://www.gstatic.com/charts/loader.js' %>
-  <script type='text/javascript' src='http://www.google.com/jsapi'></script>
-  <script type='text/javascript'>
-      google.load('visualization', '1', {'packages':['annotatedtimeline','geomap', 'corechart']});
-  </script>
-  <%= render partial: 'vote_map', locals: {q: @poll.vote_region_quantity}  %>
+  <div id="map">
+    <%= render partial: 'vote_map', locals: {q: @poll.vote_region_quantity}  %>
+  </div>
 </div>
 
 

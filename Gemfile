@@ -62,6 +62,7 @@ gem 'pundit', '~> 1.1'
 gem 'geocoder'
 gem 'hightop'
 gem "chartkick"
+gem 'kaminari'
 
 
 group :development do

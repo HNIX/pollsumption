@@ -1,4 +1,5 @@
 class Vote < ActiveRecord::Base
+
   geocoded_by :user_ip,
     latitude: :latitude, longitude: :longitude
   reverse_geocoded_by :latitude, :longitude do |obj,results|

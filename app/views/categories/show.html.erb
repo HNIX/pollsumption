@@ -1,0 +1,17 @@
+<% flash.each do |key, value| %>
+   <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+
+<h3> Products under this category </h3>
+<% Poll.where(category_id: @category.id).each do |poll| %>
+<li> <%= poll.topic %> </li>
+<% end %>
+<% unless current_user.categories.exists?(@category) %>
+	<%= form_tag(controller: "categories", action: "favorite", method: "post") do %>
+	    <%= submit_tag "Favorite"%>
+	<% end %>
+<% else %>
+	<%= form_tag(controller: "categories", action: "unfavorite") do %>
+	    <%= submit_tag "Unfavorite"%>
+	<% end %>
+<% end %>

@@ -8,8 +8,13 @@ Rails.application.routes.draw do
   resources :polls
   root 'polls#index'
 
+  resources :categories 
+  
   resources :votes, only: [:create]
   resources :users, only: [:show]
+
+  post 'categories/:id/favorite' => 'categories#favorite'
+  post 'categories/:id/unfavorite' => 'categories#unfavorite'
 
   devise_scope :user do
     get    "login"   => "users/sessions#new",         as: :new_user_session

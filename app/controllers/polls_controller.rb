@@ -1,9 +1,15 @@
 class PollsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_poll, only: [:edit, :update, :destroy]
+  helper_method :sort_column, :sort_direction
+  before_filter :set_category
 
   def index
-    @polls = Poll.all.order(created_at: :asc)
+    if params[:search]
+      @polls = Poll.search(params[:search]).order(sort_column + " " + sort_direction).page params[:page]
+    else
+      @polls = Poll.all.order(sort_column + " " + sort_direction).page params[:page]
+    end
     authorize @polls
   end
 
@@ -50,11 +56,24 @@ class PollsController < ApplicationController
   end
 
   private
+
+  def set_category 
+    @categories = Category.all
+  end
+
+  def sort_column
+    Poll.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
   
   def set_poll
     @poll = Poll.find_by_id(params[:id])
     authorize @poll
   end
+  
   def poll_params
   	params.require(:poll).permit(:topic,:category_id, :user_id, vote_options_attributes: [:id, :title, :_destroy])
   end

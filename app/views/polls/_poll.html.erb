@@ -1,0 +1,27 @@
+<% @polls.each do |poll| %>
+  <div class="portlet light">
+      <div class="portlet-title">
+          <div class="caption font-green-sharp">
+              <span class="caption-subject bold uppercase"><%= link_to Category.find(poll.category_id).name, category_path(poll.category_id) %> | <%= link_to poll.topic, poll_path(poll) %></span>
+              <span class="caption-helper">Total Votes: <%= poll.votes_summary %></span>
+          </div>
+          <div class="actions">
+            <% if user_signed_in? %>
+              <%= link_to 'Vote', poll_path(poll), class: "btn btn-circle btn-default btn-sm" %>
+            <% end %>
+            <%= link_to 'Edit', edit_poll_path(poll), class: "btn btn-circle btn-default btn-sm" if policy(poll).edit? %>
+            <%= link_to 'Delete', poll_path(poll), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-circle btn-default btn-sm" if policy(poll).destroy? %>
+          </div>
+      </div>
+      <div class="portlet-body">
+        <div>
+        <%= render partial: 'polls/show_vote_option', collection: poll.vote_options, as: :option %>
+        </div>
+      </div>
+      <div class="actions">
+       <% if !current_user %>
+          <p>Please <%= link_to "Sign In", new_user_session_path %> to participate in this poll.</p>
+       <% end %>
+      </div>
+  </div>
+<% end %>

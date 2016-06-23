@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :vote_options, through: :votes
   has_many :polls, dependent: :destroy
   cattr_accessor :current_ip
+  has_and_belongs_to_many :categories
 
   #->Prelang (user_login/devise)
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)

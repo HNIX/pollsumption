@@ -1,56 +1,45 @@
 <div class="col-md-2">
   <h3>Favorites</h3>
-  <div class="portlet light">
+  <% unless user_signed_in? %>
+      <div class="portlet light">
         <div class="portlet-title">
-            <div class="caption font-green-sharp">
-                <span class="caption-subject bold uppercase">Sidebar Content</span>
+            <small><p>Log in or join to view your favorites</p></small>
+        </div>
+        <div>
+            <%= link_to "Log In", new_user_session_path, class:"btn btn-circle blue btn-block", width:"100%" %>
+        </div>
+      </div>
+  <% end %>
+  <% if user_signed_in? && current_user.categories %>
+      <% current_user.categories.each do |cat| %>
+          <div class="portlet light">
+            <div class="portlet-title">
+              <div class="caption font-green-sharp">
+                <span class="caption-subject bold uppercase"><%= link_to cat.name, category_path(cat) %></span>
+              </div>
             </div>
-        </div>
-        <div class="portlet-body">
-            <p>Lots of content</p>
-        </div>
-    </div>
+            <div class="portlet-body">
+              <small><%= cat.desc %></small>
+            </div>
+          </div>
+      <% end %>
+  <% end %>
 </div>
 <div class="col-md-7">
-<% @polls.each do |poll| %>
-    <div class="portlet light">
-        <div class="portlet-title">
-            <div class="caption font-green-sharp">
-                <span class="caption-subject bold uppercase"><%= poll.category.name if poll.category %> | <%= link_to poll.topic, poll_path(poll) %></span>
-                <span class="caption-helper">Total Votes: <%= poll.votes_summary %></span>
-            </div>
-            <div class="actions">
-              <% if user_signed_in? %>
-                <%= link_to 'Vote', poll_path(poll), class: "btn btn-circle btn-default btn-sm" %>
-              <% end %>
-              <%= link_to 'Edit', edit_poll_path(poll), class: "btn btn-circle btn-default btn-sm" if policy(poll).edit? %>
-              <%= link_to 'Delete', poll_path(poll), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-circle btn-default btn-sm" if policy(poll).destroy? %>
-            </div>
-        </div>
-        <div class="portlet-body">
-          <div>
-          <%= render partial: 'polls/show_vote_option', collection: poll.vote_options, as: :option %>
-          </div>
-        </div>
-        <div class="actions">
-         <% if !current_user %>
-            <p>Please <%= link_to "Sign In", new_user_session_path %> to participate in this poll.</p>
-         <% end %>
-        </div>
+    <div class="action" id="sort-links">
+        <%= sortable "topic" %>
+        <%= sortable "created_at" %>
     </div>
-    <% end %>
+    <div id="polls">
+        <% if @polls.present? %>
+          <%= render "poll" %>
+        <% else %>
+          <p>There are no polls containing the term(s) <%= params[:search] %>.</p>
+        <% end %>
+    </div>
+    <%= paginate @polls %>
 </div>
 <div class="col-md-3">
-  <div class="portlet light">
-        <div class="portlet-title">
-            <div class="caption font-green-sharp">
-                <span class="caption-subject bold uppercase">Sidebar Content</span>
-            </div>
-        </div>
-        <div class="portlet-body">
-            <p>Lots of content</p>
-        </div>
-    </div>
     <div class="portlet light">
         <div class="portlet-title">
             <div class="caption font-green-sharp">

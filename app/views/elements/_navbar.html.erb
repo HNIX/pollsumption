@@ -8,9 +8,6 @@
               <h1><%= link_to "Polling App", defined?(root_path) ? root_path : "#", class: "navbar-brand" %></h1>
           </div>
           <!-- END LOGO -->
-          <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-          <a href="javascript:;" class="menu-toggler"></a>
-          <!-- END RESPONSIVE MENU TOGGLER -->
           <!-- BEGIN TOP NAVIGATION MENU -->
           <div class="top-menu">
               <ul class="nav navbar-nav pull-right">
@@ -88,18 +85,12 @@
   <!-- BEGIN HEADER MENU -->
   <div class="page-header-menu">
       <div class="container">
-          <!-- BEGIN HEADER SEARCH BOX -->
-          <form class="search-form" action="page_general_search.html" method="GET">
-              <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search" name="query">
-                  <span class="input-group-btn">
-                      <a href="javascript:;" class="btn submit">
-                          <i class="fa fa-search" aria-hidden="true"></i>
-                      </a>
-                  </span>
-              </div>
-          </form>
-          <!-- END HEADER SEARCH BOX -->
+          <%= form_tag polls_path, :method => 'get', :id => "polls_search", class:"search-form" do %>
+            <div class="input-group">
+              <%= text_field_tag :search, params[:search], placeholder:"Search", class:"form-control" %>
+              <%= submit_tag "Search", :name => nil, style:"display: none;" %>
+            </div>
+          <% end %>
           <!-- BEGIN MEGA MENU -->
           <div class="hor-menu  ">
               <ul class="nav navbar-nav">
@@ -109,17 +100,6 @@
                   <li class="menu-dropdown classic-menu-dropdown ">
                     <%= link_to "Polls", polls_path %>
                   </li>
-                  <li class="menu-dropdown classic-menu-dropdown ">
-                      <a href="javascript:;"> Conferences
-                          <span class="arrow"></span>
-                      </a>
-                      <ul class="dropdown-menu pull-left">
-                          <li><a href="#">All</a></li>
-                          <li><a href="#">SEC</a></li>
-                          <li><a href="#">PAC 10</a></li>
-                          <li><a href="#">Other</a></li>
-                      </ul>
-                  </li> 
                   <li>
                     <%= link_to "New Poll", new_poll_path if user_signed_in? %>
                   </li>

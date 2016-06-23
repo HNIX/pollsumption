@@ -4,6 +4,10 @@ class Poll < ActiveRecord::Base
   accepts_nested_attributes_for :vote_options, :reject_if => :all_blank, :allow_destroy => true
   belongs_to :user
   belongs_to :category
+
+  def self.search(search)
+    where('topic LIKE ?', "%#{search}%")
+  end
   
   def normalized_votes_for(option)
   	votes_summary == 0 ? 0 : (option.votes.count.to_f / votes_summary) * 100
